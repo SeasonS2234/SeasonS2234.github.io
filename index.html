@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ved Bhatkar — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080c18;
+  --bg2:#0d1224;
+  --bg3:#111832;
+  --bdr:#1a2244;
+  --bdr2:#243060;
+  --tx:#e4e2f0;
+  --txd:#8890b5;
+  --txm:#4a5280;
+  --acc:#5eead4;
+  --accs:#5eead418;
+  --wrm:#fb923c;
+  --ros:#f472b6;
+  --blu:#60a5fa;
+  --vio:#a78bfa;
+  --tel:#2dd4bf;
+  --mono:'JetBrains Mono',monospace;
+  --ser:'Playfair Display',Georgia,serif;
+  --san:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--acc) var(--bg)}
+body{background:var(--bg);color:var(--tx);font-family:var(--san);line-height:1.7;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── SCROLL PROGRESS ── */
+.spb{position:fixed;top:0;left:0;height:2px;width:0%;z-index:10001;background:linear-gradient(90deg,var(--acc),var(--ros),var(--wrm))}
+
+/* ══════════════ NAV (original dark) ══════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:#080c1899;border-bottom:1px solid transparent;transition:all .4s}
+nav.scrolled{border-color:var(--bdr);padding:1rem 3rem}
+.nl{font-family:var(--mono);font-size:.85rem;font-weight:500;color:var(--acc);letter-spacing:2px;text-transform:uppercase}
+.nl span{color:var(--txm)}
+.nk{display:flex;gap:2.5rem;list-style:none}
+.nk a{font-family:var(--mono);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--txd);text-decoration:none;position:relative;transition:color .3s}
+.nk a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--acc);transition:width .3s}
+.nk a:hover{color:var(--acc)}
+.nk a:hover::after{width:100%}
+
+/* ══════════════ HERO ══════════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center}
+
+/* Ambient glow */
+.h-amb{position:absolute;width:750px;height:750px;border-radius:50%;background:radial-gradient(circle,#f472b620 0%,#fb923c12 30%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-55%);animation:ambP 6s ease-in-out infinite;pointer-events:none}
+@keyframes ambP{0%,100%{opacity:.6;transform:translate(-50%,-55%) scale(1)}50%{opacity:1;transform:translate(-50%,-55%) scale(1.1)}}
+
+/* ── THE ANIMATED TORUS ── */
+.tc{position:relative;width:400px;height:400px;margin-bottom:2.5rem;z-index:2}
+.ts{width:100%;height:100%;perspective:900px;animation:tF 7s ease-in-out infinite}
+@keyframes tF{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+
+/* Canvas for WebGL-like torus (done with layered CSS) */
+.tr{position:absolute;border-radius:50%;border:3px solid transparent}
+
+/* Ring 1 — outermost */
+.tr:nth-child(1){
+  inset:10px;
+  background:conic-gradient(from 0deg,#f472b6,#fb923c,#fbbf24,#2dd4bf,#60a5fa,#a78bfa,#f472b6);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  animation:spin 10s linear infinite;
+  filter:blur(.3px);
+}
+/* Ring 2 */
+.tr:nth-child(2){
+  inset:35px;
+  background:conic-gradient(from 120deg,#fb923c,#f472b6,#a78bfa,#60a5fa,#2dd4bf,#fbbf24,#fb923c);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));
+  animation:spin 8s linear infinite reverse;
+  filter:blur(.2px);
+}
+/* Ring 3 */
+.tr:nth-child(3){
+  inset:65px;
+  background:conic-gradient(from 240deg,#a78bfa,#2dd4bf,#fbbf24,#fb923c,#f472b6,#60a5fa,#a78bfa);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 6px),#000 calc(100% - 5px));
+  animation:spin 13s linear infinite;
+}
+/* Ring 4 — inner */
+.tr:nth-child(4){
+  inset:100px;
+  background:conic-gradient(from 60deg,#2dd4bf,#60a5fa,#f472b6,#fb923c,#fbbf24,#a78bfa,#2dd4bf);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  animation:spin 7s linear infinite reverse;
+}
+/* Ring 5 — innermost glow */
+.tr:nth-child(5){
+  inset:130px;
+  background:conic-gradient(from 180deg,#f472b6,#fbbf24,#2dd4bf,#a78bfa,#f472b6);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
+  animation:spin 15s linear infinite;
+  filter:blur(1px);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Glow blobs inside the torus */
+.tb{position:absolute;border-radius:50%;filter:blur(35px);pointer-events:none;animation:bD 10s ease-in-out infinite}
+.tb.b1{width:200px;height:200px;top:60px;left:60px;background:radial-gradient(circle,#f472b6bb,transparent);animation-duration:7s}
+.tb.b2{width:180px;height:180px;top:100px;left:130px;background:radial-gradient(circle,#fb923caa,transparent);animation-duration:9s;animation-delay:-3s}
+.tb.b3{width:220px;height:220px;top:80px;left:80px;background:radial-gradient(circle,#60a5fa55,transparent);animation-duration:11s;animation-delay:-5s}
+.tb.b4{width:150px;height:150px;top:130px;left:130px;background:radial-gradient(circle,#2dd4bf55,transparent);animation-duration:8s;animation-delay:-2s}
+@keyframes bD{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(22px,-18px) scale(1.15)}66%{transform:translate(-18px,12px) scale(.88)}}
+
+/* 3D orbit ellipses */
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb-1{width:350px;height:120px;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg);border:1.5px solid #f472b633;animation:orbR 18s linear infinite}
+.orb-2{width:320px;height:140px;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(72deg) rotateZ(60deg);border:1.5px solid #fb923c28;animation:orbR 22s linear infinite reverse}
+.orb-3{width:370px;height:110px;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(72deg) rotateZ(120deg);border:1.5px solid #60a5fa25;animation:orbR 20s linear infinite}
+@keyframes orbR{from{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg)}to{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg)}}
+
+/* Orbiting dots */
+.od{position:absolute;border-radius:50%;top:50%;left:50%}
+.od.d1{width:7px;height:7px;background:var(--ros);box-shadow:0 0 14px #f472b688;animation:oD1 9s linear infinite}
+.od.d2{width:5px;height:5px;background:var(--wrm);box-shadow:0 0 12px #fb923c88;animation:oD2 11s linear infinite}
+.od.d3{width:4px;height:4px;background:var(--acc);box-shadow:0 0 10px var(--acc);animation:oD3 13s linear infinite}
+@keyframes oD1{from{transform:rotate(0deg) translateX(175px)}to{transform:rotate(360deg) translateX(175px)}}
+@keyframes oD2{from{transform:rotate(0deg) translateX(160px)}to{transform:rotate(-360deg) translateX(160px)}}
+@keyframes oD3{from{transform:rotate(0deg) translateX(185px)}to{transform:rotate(360deg) translateX(185px)}}
+
+/* Hero text */
+.hl{font-family:var(--mono);font-size:.7rem;letter-spacing:8px;text-transform:uppercase;color:var(--txd);margin-bottom:1.2rem;z-index:2;opacity:0;animation:fU 1s .5s forwards}
+.hn{font-family:var(--ser);font-size:clamp(3.2rem,8vw,6.5rem);font-weight:700;line-height:1.05;z-index:2;color:var(--tx);opacity:0;animation:fU 1s .7s forwards}
+.ht{font-family:var(--mono);font-size:.68rem;letter-spacing:6px;text-transform:uppercase;color:var(--wrm);margin-top:1.2rem;z-index:2;opacity:0;animation:fU 1s .9s forwards}
+@keyframes fU{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* Slide counter */
+.hc{position:absolute;left:3rem;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:.8rem;z-index:3;font-family:var(--mono);font-size:.72rem;color:var(--txd);opacity:0;animation:fU 1s 1.2s forwards}
+.hcl{width:50px;height:1px;background:var(--txm)}
+
+/* Nav dots */
+.hnd{position:absolute;right:3rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.2rem;z-index:3;opacity:0;animation:fU 1s 1.3s forwards}
+.hnd-d{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--txm);transition:all .3s;cursor:pointer}
+.hnd-d.act{background:var(--tx);border-color:var(--tx)}
+
+/* Scroll arrow */
+.hsa{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:fU 1s 1.1s forwards}
+.sa{width:12px;height:12px;border-right:1.5px solid var(--txm);border-bottom:1.5px solid var(--txm);transform:rotate(45deg);animation:sB 2s ease-in-out infinite}
+@keyframes sB{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.3}50%{transform:rotate(45deg) translate(4px,4px);opacity:1}}
+
+/* ══════════════ SHARED ══════════════ */
+.slb{font-family:var(--mono);font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--txm);margin-bottom:.8rem}
+.slb::before{content:'→ ';color:var(--acc)}
+.stt{font-family:var(--ser);font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:3rem}
+.stt em{font-style:italic;color:var(--acc)}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0) translateX(0) scale(1)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* ══════════════ ABOUT ══════════════ */
+.ab{padding:8rem 3rem;background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.abg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1100px;margin:0 auto}
+.abt{font-size:1.05rem;color:var(--txd);font-weight:300;line-height:1.9}
+.abt strong{color:var(--tx);font-weight:500}
+.abd{display:flex;flex-direction:column}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--bdr)}
+.dk{font-family:var(--mono);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--txm)}
+.dv{font-size:.92rem;color:var(--tx)}
+
+/* ══════════════ SKILLS ══════════════ */
+.sk{padding:6rem 3rem 8rem}
+.ski{max-width:1100px;margin:0 auto}
+.skg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.skc{background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.skc:hover{transform:translateY(-6px);border-color:var(--bdr2);box-shadow:0 20px 60px #0004}
+.skc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--blu));opacity:0;transition:opacity .4s}
+.skc:hover::before{opacity:1}
+.ski-ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.ski-ic svg{width:24px;height:24px}
+.skc h3{font-family:var(--ser);font-size:1.1rem;font-weight:600;margin-bottom:.4rem}
+.skc p{font-size:.82rem;color:var(--txd);line-height:1.6;margin-bottom:1rem}
+.st{display:flex;flex-wrap:wrap;gap:.4rem}
+.stg{font-family:var(--mono);font-size:.62rem;padding:.25rem .6rem;background:var(--accs);border:1px solid #5eead422;border-radius:4px;color:var(--acc);letter-spacing:.5px}
+.ib{background:linear-gradient(135deg,#5eead418,#60a5fa18)}.id{background:linear-gradient(135deg,#fb923c18,#f472b618)}
+.ia{background:linear-gradient(135deg,#2dd4bf18,#5eead418)}.im{background:linear-gradient(135deg,#a78bfa18,#f472b618)}
+.if{background:linear-gradient(135deg,#60a5fa18,#5eead418)}.io{background:linear-gradient(135deg,#a78bfa18,#60a5fa18)}
+
+/* ══════════════ EXPERIENCE ══════════════ */
+.ex{padding:8rem 3rem;background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.exi{max-width:1100px;margin:0 auto}
+.exc{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--bdr)}
+.exc:last-child{border-bottom:none}
+.eco{font-family:var(--mono);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem}
+.ecp{font-family:var(--mono);font-size:.68rem;color:var(--txm);line-height:1.6}
+.ecr{font-family:var(--ser);font-size:1.5rem;font-weight:700;margin-bottom:1rem}
+.ecd{font-size:.9rem;color:var(--txd);line-height:1.8;margin-bottom:1.5rem}
+.em{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem}
+.emc{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:1rem;text-align:center;transition:all .3s}
+.emc:hover{border-color:var(--acc);transform:translateY(-2px)}
+.emv{font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--acc)}
+.eml{font-size:.68rem;color:var(--txm);margin-top:.2rem}
+
+/* ══════════════ PROJECTS ══════════════ */
+.pj{padding:8rem 3rem}
+.pji{max-width:1100px;margin:0 auto}
+.pjc{background:var(--bg3);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:all .4s}
+.pjc:hover{border-color:var(--bdr2);box-shadow:0 30px 60px #0003;transform:translateY(-4px)}
+.pjv{height:250px;background:linear-gradient(135deg,#0d1224,#1a1040,#0d1830);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pjb{position:absolute;top:1.2rem;right:1.2rem;font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;padding:.4rem .8rem;background:#fff14;backdrop-filter:blur(10px);border:1px solid #ffffff20;border-radius:6px;color:var(--wrm)}
+.pjbd{padding:2rem}
+.pjn{font-family:var(--ser);font-size:1.4rem;font-weight:700;margin-bottom:.6rem}
+.pjd{font-size:.88rem;color:var(--txd);line-height:1.8;margin-bottom:1.2rem;max-width:600px}
+.pt{display:flex;flex-wrap:wrap;gap:.4rem}
+.tp{font-family:var(--mono);font-size:.62rem;padding:.3rem .7rem;background:var(--accs);border-radius:20px;color:var(--acc);letter-spacing:.5px}
+
+/* ══════════════ HOBBIES ══════════════ */
+.hb{padding:8rem 3rem;background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.hbi{max-width:1100px;margin:0 auto}
+.hbg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.hbg2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+.hbc{background:var(--bg3);border:1px solid var(--bdr);border-radius:14px;padding:2.5rem 2rem;text-align:center;transition:all .5s cubic-bezier(.16,1,.3,1)}
+.hbc:hover{transform:translateY(-8px);border-color:var(--bdr2);box-shadow:0 20px 50px #0003}
+.hic{width:80px;height:80px;margin:0 auto 1.2rem}
+.hic svg{width:100%;height:100%}
+.hbc h3{font-family:var(--ser);font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+.hbc p{font-size:.78rem;color:var(--txd);line-height:1.6}
+@keyframes sw{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(4px) translateY(-3px)}50%{transform:translateX(0) translateY(-5px)}75%{transform:translateX(-4px) translateY(-3px)}}
+@keyframes tb{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes cp{0%,70%,100%{opacity:1}35%{opacity:.4}}
+@keyframes ss{0%,100%{transform:rotate(0deg) translateY(0)}25%{transform:rotate(-12deg) translateY(-6px)}50%{transform:rotate(3deg) translateY(-2px)}}
+@keyframes ws{to{transform:rotate(360deg)}}
+
+/* ══════════════ EDUCATION ══════════════ */
+.ed{padding:8rem 3rem}
+.edi{max-width:1100px;margin:0 auto}
+.edg{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:3rem}
+.edc{background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:2rem;transition:all .3s}
+.edc:hover{transform:translateY(-4px);border-color:var(--bdr2)}
+.edci{font-size:1.4rem;margin-bottom:.8rem}
+.edcd{font-family:var(--ser);font-size:1.05rem;font-weight:600;margin-bottom:.3rem}
+.edcs{font-size:.85rem;color:var(--txd);margin-bottom:.2rem}
+.edcy{font-family:var(--mono);font-size:.7rem;color:var(--txm)}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.cc{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;padding:1.5rem;text-align:center;transition:all .3s}
+.cc:hover{border-color:var(--wrm);transform:translateY(-3px)}
+.cci{font-size:1.6rem;margin-bottom:.5rem}
+.ccn{font-family:var(--mono);font-size:.78rem;font-weight:500;margin-bottom:.15rem}
+.ccs{font-size:.68rem;color:var(--txm)}
+
+/* ══════════════ CONTACT ══════════════ */
+.ct{padding:8rem 3rem 4rem;text-align:center;border-top:1px solid var(--bdr)}
+.cti{max-width:600px;margin:0 auto}
+.cth{font-family:var(--ser);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem}
+.cth em{color:var(--acc);font-style:italic}
+.cts{font-size:1rem;color:var(--txd);font-weight:300;margin-bottom:3rem}
+.ctl{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cla{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--tx);text-decoration:none;padding:.9rem 1.6rem;border:1px solid var(--bdr);border-radius:6px;transition:all .3s}
+.cla:hover{border-color:var(--acc);color:var(--acc);background:var(--accs);transform:translateY(-2px)}
+
+/* ══════════════ FOOTER ══════════════ */
+footer{padding:2rem 3rem;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
+.ft{font-family:var(--mono);font-size:.65rem;color:var(--txm);letter-spacing:1px}
+.ft span{color:var(--acc)}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nk{gap:1.5rem}
+  .hero{padding:6rem 1.5rem}.tc{width:280px;height:280px}.hn{font-size:clamp(2.5rem,10vw,4rem)}
+  .hc,.hnd{display:none}
+  .abg{grid-template-columns:1fr;gap:2rem}.skg{grid-template-columns:1fr}
+  .exc{grid-template-columns:1fr;gap:1rem}.hbg{grid-template-columns:1fr}.hbg2{grid-template-columns:1fr}
+  .edg{grid-template-columns:1fr}.cg{grid-template-columns:1fr}
+  .ab,.sk,.ex,.pj,.hb,.ed,.ct{padding-left:1.5rem;padding-right:1.5rem}
+}
+@media(max-width:600px){.nk{display:none}.orb{display:none}}
+</style>
+</head>
+<body>
+
+<div class="spb" id="sp"></div>
+
+<!-- NAV -->
+<nav id="nv">
+  <div class="nl">VB<span>/dev</span></div>
+  <ul class="nk">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="hero">
+  <div class="h-amb"></div>
+  <div class="tc" id="tc">
+    <div class="ts">
+      <div class="tr"></div>
+      <div class="tr"></div>
+      <div class="tr"></div>
+      <div class="tr"></div>
+      <div class="tr"></div>
+    </div>
+    <div class="tb b1"></div>
+    <div class="tb b2"></div>
+    <div class="tb b3"></div>
+    <div class="tb b4"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="od d1"></div>
+    <div class="od d2"></div>
+    <div class="od d3"></div>
+  </div>
+  <div class="hl">S O F T W A R E &nbsp; E N G I N E E R</div>
+  <h1 class="hn">VED BHATKAR</h1>
+  <div class="ht">B U I L D I N G &nbsp; S Y S T E M S &nbsp; T H A T &nbsp; S C A L E</div>
+  <div class="hc"><span>01</span><div class="hcl"></div></div>
+  <div class="hnd"><div class="hnd-d act"></div><div class="hnd-d"></div><div class="hnd-d"></div></div>
+  <div class="hsa"><div class="sa"></div></div>
+</section>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<section class="ab" id="about">
+  <div class="abg">
+    <div class="rv">
+      <div class="slb">About</div>
+      <h2 class="stt">Engineer who <em>ships.</em></h2>
+      <p class="abt">Hey, I'm Ved — a software engineer from India now based in <strong>Auckland, New Zealand</strong>. I spent <strong>2+ years at Oracle Financial Services</strong> building APIs and data pipelines for India's banking infrastructure. I've re-engineered legacy systems, automated compliance workflows, and resolved 120+ production incidents with a 95% first-time fix rate.<br><br>Currently pursuing a <strong>Master's at AUT</strong> with published AI research in deep-learning price prediction. I bring an Oracle Java SE 8 certification and a knack for turning complex problems into clean, maintainable solutions.</p>
+    </div>
+    <div class="abd rv d2">
+      <div class="dr"><span class="dk">Location</span><span class="dv">Auckland, New Zealand</span></div>
+      <div class="dr"><span class="dk">Education</span><span class="dv">MCIS — AUT (Current)</span></div>
+      <div class="dr"><span class="dk">Degree</span><span class="dv">B.Tech Computer Eng — NMIMS</span></div>
+      <div class="dr"><span class="dk">GPA</span><span class="dv">3.6 / 4.0</span></div>
+      <div class="dr"><span class="dk">Certification</span><span class="dv">Oracle Java SE 8 Programmer</span></div>
+      <div class="dr"><span class="dk">Status</span><span class="dv" style="color:var(--acc)">Open to Opportunities</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SKILLS ══════════════ -->
+<section class="sk" id="skills">
+  <div class="ski">
+    <div class="rv"><div class="slb">Stack</div><h2 class="stt">Tools I <em>think</em> in.</h2></div>
+    <div class="skg">
+      <div class="skc rv d1"><div class="ski-ic ib"><svg viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round"><path d="M8 3v18M4 7h8M16 3v18M12 7h8"/></svg></div><h3>Java & Spring Boot</h3><p>Production-grade APIs powering banking platforms at 99% uptime.</p><div class="st"><span class="stg">Java SE 8</span><span class="stg">Spring Boot</span><span class="stg">REST</span><span class="stg">Certified</span></div></div>
+      <div class="skc rv d2"><div class="ski-ic id"><svg viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3>PL/SQL & Oracle DB</h3><p>Query tuning and stored procedures — cut transaction times by 70%.</p><div class="st"><span class="stg">PL/SQL</span><span class="stg">Oracle DB</span><span class="stg">Flexcube</span></div></div>
+      <div class="skc rv d3"><div class="ski-ic ia"><svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div><h3>REST API Design</h3><p>Clean, documented APIs handling 100K+ daily banking transactions.</p><div class="st"><span class="stg">REST</span><span class="stg">JSON</span><span class="stg">Integration</span></div></div>
+      <div class="skc rv d4"><div class="ski-ic im"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/><line x1="13.5" y1="10.5" x2="16.5" y2="7.5"/><line x1="7.5" y1="16.5" x2="10.5" y2="13.5"/><line x1="13.5" y1="13.5" x2="16.5" y2="16.5"/></svg></div><h3>Python & Deep Learning</h3><p>Published research — LSTM, TCN, GRU ensembles for forecasting.</p><div class="st"><span class="stg">Python</span><span class="stg">LSTM</span><span class="stg">TCN</span><span class="stg">GRU</span></div></div>
+      <div class="skc rv d5"><div class="ski-ic if"><svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><path d="M7 8l-4 4 4 4"/><path d="M17 8l4 4-4 4"/><path d="M14 4l-4 16"/></svg></div><h3>JavaScript & Web</h3><p>Modern JS, HTML5, CSS — interactive frontends and UIs.</p><div class="st"><span class="stg">JavaScript</span><span class="stg">HTML</span><span class="stg">CSS</span></div></div>
+      <div class="skc rv d6"><div class="ski-ic io"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><path d="M6 3v18"/><path d="M18 3v18"/><path d="M6 9h12"/><path d="M6 15h12"/><circle cx="6" cy="9" r="2"/><circle cx="18" cy="15" r="2"/></svg></div><h3>Git, Linux & CI/CD</h3><p>Version control, pipelines, Agile workflows, and TDD.</p><div class="st"><span class="stg">Git</span><span class="stg">Linux</span><span class="stg">CI/CD</span><span class="stg">Agile</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EXPERIENCE ══════════════ -->
+<section class="ex" id="experience">
+  <div class="exi">
+    <div class="rv"><div class="slb">Experience</div><h2 class="stt">Where I've <em>built.</em></h2></div>
+    <div class="exc rv">
+      <div><div class="eco">Oracle (OFSS)</div><div class="ecp">Jun 2023 — Jul 2025<br>Pune, India</div></div>
+      <div>
+        <div class="ecr">Associate Consultant</div>
+        <div class="ecd">Built RESTful APIs and data pipelines for CSB Bank's core platform. Re-engineered legacy modules for Canara Bank, automated compliance workflows, and maintained production stability across multiple banking clients.</div>
+        <div class="em">
+          <div class="emc rv d1"><div class="emv">100K+</div><div class="eml">Daily Transactions</div></div>
+          <div class="emc rv d2"><div class="emv">70%</div><div class="eml">Faster Processing</div></div>
+          <div class="emc rv d3"><div class="emv">120+</div><div class="eml">Hours Saved/Mo</div></div>
+          <div class="emc rv d4"><div class="emv">95%</div><div class="eml">First-Time Fix</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="exc rv">
+      <div><div class="eco">Shree Superette</div><div class="ecp">Feb 2026 — Present<br>Auckland, NZ</div></div>
+      <div>
+        <div class="ecr">Retail Assistant</div>
+        <div class="ecd">Analysing buying patterns, resolving customer issues autonomously, and coordinating inventory — bringing a data-driven mindset to everyday retail.</div>
+        <div class="em">
+          <div class="emc rv d1"><div class="emv">15%</div><div class="eml">Sales Uplift</div></div>
+          <div class="emc rv d2"><div class="emv">40%</div><div class="eml">Fewer Escalations</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROJECTS ══════════════ -->
+<section class="pj" id="projects">
+  <div class="pji">
+    <div class="rv"><div class="slb">Research</div><h2 class="stt">Things I've <em>explored.</em></h2></div>
+    <div class="pjc rv d2">
+      <div class="pjv">
+        <svg width="500" height="250" viewBox="0 0 500 250" fill="none" style="opacity:.35">
+          <circle cx="60" cy="40" r="5" fill="#a78bfa"><animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/></circle>
+          <circle cx="60" cy="100" r="5" fill="#a78bfa"><animate attributeName="r" values="5;7;5" dur="3s" begin=".3s" repeatCount="indefinite"/></circle>
+          <circle cx="60" cy="160" r="5" fill="#a78bfa"><animate attributeName="r" values="5;7;5" dur="3s" begin=".6s" repeatCount="indefinite"/></circle>
+          <circle cx="60" cy="220" r="5" fill="#a78bfa"><animate attributeName="r" values="5;7;5" dur="3s" begin=".9s" repeatCount="indefinite"/></circle>
+          <circle cx="190" cy="60" r="5" fill="#60a5fa"><animate attributeName="r" values="5;8;5" dur="2.5s" repeatCount="indefinite"/></circle>
+          <circle cx="190" cy="125" r="5" fill="#60a5fa"><animate attributeName="r" values="5;8;5" dur="2.5s" begin=".4s" repeatCount="indefinite"/></circle>
+          <circle cx="190" cy="190" r="5" fill="#60a5fa"><animate attributeName="r" values="5;8;5" dur="2.5s" begin=".8s" repeatCount="indefinite"/></circle>
+          <circle cx="320" cy="85" r="5" fill="#f472b6"><animate attributeName="r" values="5;7;5" dur="3.5s" repeatCount="indefinite"/></circle>
+          <circle cx="320" cy="165" r="5" fill="#f472b6"><animate attributeName="r" values="5;7;5" dur="3.5s" begin=".5s" repeatCount="indefinite"/></circle>
+          <circle cx="440" cy="125" r="7" fill="#fbbf24"><animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/></circle>
+          <g stroke="#fff" stroke-width=".6" opacity=".2">
+            <line x1="65" y1="40" x2="185" y2="60"/><line x1="65" y1="40" x2="185" y2="125"/><line x1="65" y1="40" x2="185" y2="190"/>
+            <line x1="65" y1="100" x2="185" y2="60"/><line x1="65" y1="100" x2="185" y2="125"/><line x1="65" y1="100" x2="185" y2="190"/>
+            <line x1="65" y1="160" x2="185" y2="60"/><line x1="65" y1="160" x2="185" y2="125"/><line x1="65" y1="160" x2="185" y2="190"/>
+            <line x1="65" y1="220" x2="185" y2="60"/><line x1="65" y1="220" x2="185" y2="125"/><line x1="65" y1="220" x2="185" y2="190"/>
+            <line x1="195" y1="60" x2="315" y2="85"/><line x1="195" y1="60" x2="315" y2="165"/>
+            <line x1="195" y1="125" x2="315" y2="85"/><line x1="195" y1="125" x2="315" y2="165"/>
+            <line x1="195" y1="190" x2="315" y2="85"/><line x1="195" y1="190" x2="315" y2="165"/>
+            <line x1="325" y1="85" x2="433" y2="125"/><line x1="325" y1="165" x2="433" y2="125"/>
+          </g>
+          <circle r="3" fill="#fff" opacity=".5"><animateMotion dur="2.5s" repeatCount="indefinite" path="M65,100 L185,125 L315,85 L433,125"/></circle>
+          <circle r="3" fill="#fbbf24" opacity=".4"><animateMotion dur="3.5s" repeatCount="indefinite" path="M65,160 L185,60 L315,165 L433,125"/></circle>
+        </svg>
+        <div class="pjb">Published — IJRES</div>
+      </div>
+      <div class="pjbd">
+        <h3 class="pjn">XRP Price Prediction Model</h3>
+        <p class="pjd">Built an ensemble deep-learning model combining LSTM, TCN, and GRU to forecast Ripple (XRP) prices. Outperformed single-architecture baselines on live market data. Published in the International Journal of Research in Engineering and Science.</p>
+        <div class="pt"><span class="tp">Python</span><span class="tp">LSTM</span><span class="tp">TCN</span><span class="tp">GRU</span><span class="tp">Deep Learning</span><span class="tp">Time Series</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOBBIES ══════════════ -->
+<section class="hb" id="hobbies">
+  <div class="hbi">
+    <div class="rv"><div class="slb">Beyond Code</div><h2 class="stt">When I'm <em>not coding.</em></h2></div>
+    <div class="hbg">
+      <div class="hbc rv d1"><div class="hic"><svg viewBox="0 0 80 80" fill="none"><path d="M8 68 L30 25 L44 44 L52 34 L72 68 Z" fill="#2dd4bf" opacity=".15"/><path d="M8 68 L30 25 L44 44 L52 34 L72 68" stroke="#2dd4bf" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="18" r="5" fill="#fbbf24" opacity=".5"><animate attributeName="opacity" values=".3;.7;.3" dur="3s" repeatCount="indefinite"/></circle><g style="animation:tb 2s ease-in-out infinite"><circle cx="33" cy="36" r="2.5" fill="#e4e2f0"/><line x1="33" y1="39" x2="33" y2="48" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/><line x1="33" y1="48" x2="30" y2="55" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/><line x1="33" y1="48" x2="36" y2="55" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/><line x1="33" y1="42" x2="29" y2="46" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/><line x1="33" y1="42" x2="38" y2="39" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/></g></svg></div><h3>Trekking</h3><p>From the Sahyadris to NZ peaks — always chasing the next summit.</p></div>
+      <div class="hbc rv d2"><div class="hic"><svg viewBox="0 0 80 80" fill="none"><path d="M5 48 Q14 42 22 48 Q30 54 38 48 Q46 42 54 48 Q62 54 70 48 Q78 42 85 48" stroke="#60a5fa" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"><animate attributeName="d" values="M5 48 Q14 42 22 48 Q30 54 38 48 Q46 42 54 48 Q62 54 70 48 Q78 42 85 48;M5 48 Q14 54 22 48 Q30 42 38 48 Q46 54 54 48 Q62 42 70 48 Q78 54 85 48;M5 48 Q14 42 22 48 Q30 54 38 48 Q46 42 54 48 Q62 54 70 48 Q78 42 85 48" dur="3s" repeatCount="indefinite"/></path><path d="M5 58 Q14 52 22 58 Q30 64 38 58 Q46 52 54 58 Q62 64 70 58" stroke="#60a5fa" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".3"><animate attributeName="d" values="M5 58 Q14 52 22 58 Q30 64 38 58 Q46 52 54 58 Q62 64 70 58;M5 58 Q14 64 22 58 Q30 52 38 58 Q46 64 54 58 Q62 52 70 58;M5 58 Q14 52 22 58 Q30 64 38 58 Q46 52 54 58 Q62 64 70 58" dur="3.5s" repeatCount="indefinite"/></path><g style="animation:sw 3s ease-in-out infinite"><circle cx="40" cy="32" r="4" fill="#60a5fa" opacity=".7"/><path d="M28 38 Q34 34 40 38 Q46 42 52 38" stroke="#e4e2f0" stroke-width="2" fill="none" stroke-linecap="round"/><line x1="26" y1="36" x2="20" y2="30" stroke="#e4e2f0" stroke-width="1.5" stroke-linecap="round"/></g></svg></div><h3>Swimming</h3><p>My reset button — cutting through water, one lap at a time.</p></div>
+      <div class="hbc rv d3"><div class="hic"><svg viewBox="0 0 80 80" fill="none"><rect x="18" y="50" width="10" height="10" fill="#a78bfa" opacity=".25"/><rect x="38" y="50" width="10" height="10" fill="#a78bfa" opacity=".25"/><rect x="28" y="60" width="10" height="10" fill="#a78bfa" opacity=".25"/><rect x="48" y="60" width="10" height="10" fill="#a78bfa" opacity=".25"/><rect x="18" y="60" width="10" height="10" fill="#a78bfa" opacity=".12"/><rect x="38" y="60" width="10" height="10" fill="#a78bfa" opacity=".12"/><rect x="28" y="50" width="10" height="10" fill="#a78bfa" opacity=".12"/><rect x="48" y="50" width="10" height="10" fill="#a78bfa" opacity=".12"/><g style="animation:cp 4s ease-in-out infinite"><path d="M40 12 L40 16 M37.5 14.5 L42.5 14.5" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/><path d="M34 44 L46 44 L48 38 L43 28 L46 21 L40 16.5 L34 21 L37 28 L32 38 Z" fill="#a78bfa" opacity=".5" stroke="#a78bfa" stroke-width="1"/><rect x="31" y="44" width="18" height="3" rx="1" fill="#a78bfa" opacity=".7"/></g></svg></div><h3>Chess</h3><p>Strategic thinking — sharpens problem-solving on and off the board.</p></div>
+    </div>
+    <div class="hbg2">
+      <div class="hbc rv d4"><div class="hic"><svg viewBox="0 0 80 80" fill="none"><g style="animation:ss 2.5s ease-in-out infinite"><ellipse cx="30" cy="28" rx="12" ry="16" fill="none" stroke="#fb923c" stroke-width="2" transform="rotate(-18 30 28)"/><line x1="30" y1="44" x2="27" y2="70" stroke="#fb923c" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="22" x2="36" y2="22" stroke="#fb923c" stroke-width=".7" opacity=".3"/><line x1="23" y1="28" x2="37" y2="28" stroke="#fb923c" stroke-width=".7" opacity=".3"/><line x1="24" y1="34" x2="36" y2="34" stroke="#fb923c" stroke-width=".7" opacity=".3"/></g><circle cx="55" cy="20" r="3.5" fill="#e4e2f0" opacity=".7"><animate attributeName="cy" values="20;16;20" dur="2.5s" repeatCount="indefinite"/><animate attributeName="cx" values="55;58;55" dur="2.5s" repeatCount="indefinite"/></circle><path d="M55 24 L52 33 L55 31 L58 33 Z" fill="#e4e2f0" opacity=".3"><animate attributeName="d" values="M55 24 L52 33 L55 31 L58 33 Z;M58 20 L55 29 L58 27 L61 29 Z;M55 24 L52 33 L55 31 L58 33 Z" dur="2.5s" repeatCount="indefinite"/></path></svg></div><h3>Badminton</h3><p>Fast reflexes, friendly competition, and a great workout.</p></div>
+      <div class="hbc rv d5"><div class="hic"><svg viewBox="0 0 80 80" fill="none"><line x1="0" y1="62" x2="80" y2="62" stroke="#e4e2f0" stroke-width=".8" opacity=".15"/><path d="M18 50 L22 40 L50 40 L56 50 Z" fill="#f472b6" opacity=".45"/><rect x="14" y="50" width="46" height="12" rx="3" fill="#f472b6" opacity=".65"/><path d="M24 42 L27 48 L37 48 L37 42 Z" fill="#e4e2f0" opacity=".2"/><path d="M39 42 L39 48 L48 48 L45 42 Z" fill="#e4e2f0" opacity=".2"/><circle cx="24" cy="62" r="5" fill="#1a2244" stroke="#4a5280" stroke-width="1.2"/><circle cx="24" cy="62" r="1.5" fill="#8890b5" style="animation:ws .8s linear infinite"/><circle cx="52" cy="62" r="5" fill="#1a2244" stroke="#4a5280" stroke-width="1.2"/><circle cx="52" cy="62" r="1.5" fill="#8890b5" style="animation:ws .8s linear infinite"/><rect x="57" y="52" width="4" height="2.5" rx="1" fill="#fbbf24" opacity=".7"><animate attributeName="opacity" values=".5;1;.5" dur="1.5s" repeatCount="indefinite"/></rect></svg></div><h3>Driving</h3><p>Open roads, good tunes — NZ was made for road trips.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ EDUCATION ══════════════ -->
+<section class="ed" id="education">
+  <div class="edi">
+    <div class="rv"><div class="slb">Education</div><h2 class="stt">Where I <em>learned.</em></h2></div>
+    <div class="edg">
+      <div class="edc rv d1"><div class="edci">🎓</div><div class="edcd">Master of Computer & Information Sciences</div><div class="edcs">Auckland University of Technology</div><div class="edcy">Jul 2025 — Present</div></div>
+      <div class="edc rv d2"><div class="edci">🏛</div><div class="edcd">B.Tech — Computer Engineering</div><div class="edcs">SVKM's NMIMS MPSTME, India</div><div class="edcy">Jul 2019 — May 2023 · GPA 3.6/4.0</div></div>
+    </div>
+    <div class="cg">
+      <div class="cc rv d1"><div class="cci">☕</div><div class="ccn">Oracle Java SE 8</div><div class="ccs">Certified Programmer</div></div>
+      <div class="cc rv d2"><div class="cci">🗄</div><div class="ccn">PL/SQL Developer</div><div class="ccs">Intermediate Cert</div></div>
+      <div class="cc rv d3"><div class="cci">⭐</div><div class="ccn">Employee of the Month</div><div class="ccs">OFSS — March 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section class="ct" id="contact">
+  <div class="cti">
+    <div class="rv"><div class="slb" style="text-align:center">Contact</div></div>
+    <h2 class="cth rv d1">Let's build something <em>great.</em></h2>
+    <p class="cts rv d2">Open to graduate software engineering roles in New Zealand.</p>
+    <div class="ctl rv d3">
+      <a href="mailto:vedb2234@gmail.com" class="cla">vedb2234@gmail.com →</a>
+      <a href="tel:+64204366279" class="cla">+64 204 366 279 →</a>
+      <a href="https://www.linkedin.com/in/ved-bhatkar-63489b19a/" target="_blank" class="cla">LinkedIn →</a>
+      <a href="https://github.com/SeasonS2234" target="_blank" class="cla">GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="ft">© 2026 VED BHATKAR</div><div class="ft">DESIGNED WITH <span>♥</span> IN AUCKLAND</div></footer>
+
+<script>
+const sp=document.getElementById('sp'),nv=document.getElementById('nv');
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  sp.style.width=(s/h*100)+'%';
+  nv.classList.toggle('scrolled',s>50);
+});
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+const tc=document.getElementById('tc');
+if(tc){document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*30,y=(e.clientY/window.innerHeight-.5)*30;tc.style.transform=`translate(${x}px,${y}px)`})}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
